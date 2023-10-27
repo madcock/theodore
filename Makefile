@@ -253,6 +253,20 @@ else ifeq ($(platform), rpi4_64)
 	PLATFORM_DEFINES += -mcpu=cortex-a72 -mtune=cortex-a72 -ffast-math
 	PLATFORM_DEFINES += -DARM
 
+# SF2000
+else ifeq ($(platform), sf2000)
+    TARGET := $(TARGET_NAME)_libretro_$(platform).a
+    MIPS=/opt/mips32-mti-elf/2019.09-03-2/bin/mips-mti-elf-
+    CC = $(MIPS)gcc
+    CXX = $(MIPS)g++
+    AR = $(MIPS)ar
+    CFLAGS =-EL -march=mips32 -mtune=mips32 -msoft-float -ffast-math -fomit-frame-pointer
+    CFLAGS+=-G0 -mno-abicalls -fno-pic
+#	-ffreestanding
+    CFLAGS+=-DSF2000 -DFRONTEND_SUPPORTS_RGB565 -DLOWRES -DM16B
+    CXXFLAGS=$(CFLAGS)
+    STATIC_LINKING = 1
+	
 #MIYOO
 else ifeq ($(platform), miyoo)
    TARGET := $(TARGET_NAME)_libretro.so
