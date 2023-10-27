@@ -3,6 +3,7 @@
 /src/*.o
 /src/vkeyb/*.o
 
+*.a
 *.so
 libs
 obj
